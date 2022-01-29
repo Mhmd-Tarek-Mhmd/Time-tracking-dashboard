@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Time Tracking Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap"
+    />
+    <style>
+      :root {
+        --blue: hsl(235, 45%, 61%);
+
+        --work: hsl(15, 100%, 70%);
+        --play: hsl(195, 74%, 62%);
+        --study: hsl(348, 100%, 68%);
+        --exercise: hsl(145, 58%, 55%);
+        --social: hsl(264, 64%, 52%);
+        --self-care: hsl(43, 84%, 65%);
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        min-height: 100vh;
+        color: hsl(236, 100%, 87%);
+        font-family: "Rubik", sans-serif;
+        background-color: hsl(226, 43%, 10%);
+      }
+      button {
+        border: none;
+        font: inherit;
+        color: inherit;
+        background: none;
+        will-change: color;
+        transition: 0.3s color;
+      }
+      button.active,
+      button:hover,
+      button:focus-visible {
+        color: white !important;
+      }
+      .dashboard {
+        gap: 24px;
+        display: grid;
+        padding: 81px 0;
+        justify-content: center;
+        grid-template-columns: minmax(0, 327px);
+      }
+      .title {
+        color: white;
+      }
+      .card {
+        border-radius: 10px;
+      }
+      .card > * {
+        border-radius: inherit;
+      }
+      .card-body,
+      .user {
+        background-color: hsl(235, 46%, 20%);
+      }
+      .card-head {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+      .controls {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+      }
+      @media (min-width: 768px) {
+        .dashboard {
+          gap: 30px;
+          max-width: 1109px;
+          grid-template-rows: 244px;
+          grid-template-columns: repeat(auto-fill, 255px);
+        }
+        .user {
+          grid-column: 1 / -1;
+        }
+      }
+      @media (min-width: 1200px) {
+        body {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .dashboard {
+          max-width: 1110px;
+        }
+        .user {
+          grid-row: span 2;
+          grid-column: initial;
+        }
+      }
+
+      /*
+        [1] User
+      */
+
+      .user {
+        display: grid;
+        grid-template-rows: 133px 70px;
+      }
+      .info {
+        gap: 18px;
+        display: flex;
+        padding-left: 29px;
+        align-items: center;
+        border-radius: inherit;
+        background-color: hsl(246, 80%, 60%);
+      }
+      .avatar {
+        width: 70px;
+        height: 70px;
+        border: 2px solid;
+        border-radius: 50%;
+      }
+      .name {
+        font-size: 1.4em;
+        font-weight: 300;
+      }
+      .name span {
+        display: block;
+        line-height: 1.7;
+        font-size: initial;
+      }
+      .controls {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+      .controls button {
+        font-size: 18px;
+        color: hsl(235, 45%, 61%);
+        text-transform: capitalize;
+      }
+      @media (min-width: 768px) {
+        .user {
+          grid-template-rows: 3fr 1fr;
+        }
+        .info {
+          gap: 40px;
+          justify-content: center;
+        }
+        .avatar {
+          width: 84px;
+          height: 84px;
+        }
+        .name {
+          font-size: 2.5em;
+        }
+      }
+      @media (min-width: 1200px) {
+        .info {
+          padding-top: 32px;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: flex-start;
+        }
+        .user {
+          grid-template-rows: 354px 164px;
+        }
+        .controls {
+          gap: 25px;
+          padding: 30px;
+          grid-template-columns: 1fr;
+        }
+        .controls button {
+          width: 100%;
+          text-align: left;
+        }
+      }
+
+      /*
+        [2] Cards
+      */
+
+      .card:not(.user) {
+        display: grid;
+        grid-template-rows: 38px 122px;
+      }
+      .card-body {
+        gap: 15px;
+        display: grid;
+        padding: 0 24px;
+        align-content: center;
+        will-change: background-color;
+        transition: 0.3s background-color;
+      }
+      .card-body:hover {
+        background-color: hsl(235, 45%, 61%);
+      }
+      .card-body > * {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .card-body h2 {
+        font-size: 18px;
+        font-weight: 400;
+      }
+      .duration,
+      .duration h3 {
+        font-weight: 300;
+      }
+      .duration h3 {
+        font-size: 2em;
+      }
+      .duration p {
+        font-size: 14px;
+      }
+      @media (min-width: 768px) {
+        .card:not(.user) {
+          grid-template-rows: 45px 199px;
+        }
+        .card-body {
+          gap: 35px;
+        }
+        .duration {
+          gap: 14px;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .duration h3 {
+          font-size: 3em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main role="main" class="dashboard">
+      <div class="user card">
+        <div class="info">
+          <img
+            src="images/image-jeremy.png"
+            alt="Jeremy avatar"
+            class="avatar"
+          />
+
+          <h1 class="name title">
+            <span>Report for</span>
+            Jeremy Robson
+          </h1>
+        </div>
+
+        <div class="controls">
+          <button>daily</button>
+          <button class="active">weekly</button>
+          <button>monthly</button>
+        </div>
+      </div>
+    </main>
+  </body>
+
+  <script>
+    (function () {
+      const Model = {
+        data: [],
+        timeFrame: "weekly",
+
+        init: async function () {
+          const url = "data.json";
+          const res = await fetch(url);
+          return await res.json();
+        },
+      };
+
+      const Controller = {
+        getData: () => Model.data,
+        setData: (data) => (Model.data = data),
+        getTimeFrame: () => Model.timeFrame,
+        setTimeFrame: (timeFrame) => (Model.timeFrame = timeFrame),
+
+        init: async function () {
+          const data = await Model.init();
+          this.setData(data);
+          Views.init();
+        },
+      };
+
+      const Views = {
+        init: function () {
+          const { getData, getTimeFrame } = Controller;
+          const dashboard = document.querySelector(".dashboard");
+
+          getData().forEach((obj) => {
+            dashboard.innerHTML += Helpers.cardComponent(getTimeFrame(), obj);
+          });
+
+          dashboard.addEventListener("click", function (e) {
+            const parent = e.target.parentElement;
+
+            if (
+              parent.className === "controls" &&
+              e.target.tagName.toLowerCase()
+            ) {
+              parent.querySelector(".active").classList.remove("active");
+              e.target.classList.add("active");
+              Views.render(e.target.innerHTML);
+            }
+          });
+        },
+
+        render: function (arg) {
+          const { getData, getTimeFrame } = Controller;
+          const cardBody = document.querySelectorAll(".card-body");
+
+          Controller.setTimeFrame(arg);
+          cardBody.forEach((ele, i) => {
+            ele.innerHTML = Helpers.cardBodyComponent(
+              getTimeFrame(),
+              getData()[i]
+            );
+          });
+        },
+      };
+
+      const Helpers = {
+        cardComponent: function (timeFrame, obj) {
+          return `
+          <div class="card"
+            style="background-color: var(--${obj.title
+              .toLowerCase()
+              .replace(" ", "-")})"
+          >
+            <div class="card-head" style="background: url(${
+              obj.bg
+            }) no-repeat top right 18px"></div>
+
+            <div class="card-body">
+              ${this.cardBodyComponent(timeFrame, obj)}
+            </div>
+          </div>
+        `;
+        },
+
+        cardBodyComponent: function (timeFrame, obj) {
+          return `
+            <div>
+              <h2 class="title">${obj.title}</h2>
+              <button aria-label=''>
+                <svg width="21" height="5" xmlns="http://www.w3.org/2000/svg"><path d="M2.5 0a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5Zm8 0a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5Zm8 0a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5Z" fill="currentcolor" fill-rule="evenodd"/></svg>
+              </button>
+            </div>
+
+            <div class="duration">
+              <h3 class='current title'>
+                ${this.timeFormat(obj.timeframes[timeFrame].current)}
+              </h3>
+              <p class='previous'>
+                ${this.timeFrameFormat(timeFrame)}
+                -
+                ${this.timeFormat(obj.timeframes[timeFrame].previous)}
+              </p>
+            </div>
+          `;
+        },
+
+        timeFormat: function (time) {
+          if (time < 2) {
+            return `${time}hr`;
+          } else {
+            return `${time}hrs`;
+          }
+        },
+
+        timeFrameFormat: function (timeFrame) {
+          switch (timeFrame) {
+            case "daily":
+              return "Yesterday";
+            case "weekly":
+              return "Last Week";
+            case "monthly":
+              return "Last Month";
+          }
+        },
+      };
+
+      Controller.init();
+    })();
+  </script>
+</html>
