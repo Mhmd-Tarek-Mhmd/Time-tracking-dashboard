@@ -5,7 +5,7 @@ This is a solution to the [Time tracking dashboard challenge on Frontend Mentor]
 ## Links
 
 - Live Site [URL](https://mhmd-tarek-mhmd.github.io/Time-tracking-dashboard)
-- Solution [URL](https://www.frontendmentor.io/solutions/time-tracking-dashboard-)
+- Solution [URL](https://www.frontendmentor.io/solutions/time-tracking-dashboard-wYoZO8F0I)
 
 ## Screenshots
 
