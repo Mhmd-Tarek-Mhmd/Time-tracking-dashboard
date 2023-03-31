@@ -232,7 +232,7 @@
     </style>
   </head>
   <body>
-    <main role="main" class="dashboard">
+    <main class="dashboard">
       <div class="user card">
         <div class="info">
           <img
@@ -327,7 +327,7 @@
               .toLowerCase()
               .replace(" ", "-")})"
           >
-            <div class="card-head" style="background: url(${
+            <div aria-hidden="true" class="card-head" style="background: url(${
               obj.bg
             }) no-repeat top right 18px"></div>
 
@@ -342,8 +342,8 @@
           return `
             <div>
               <h2 class="title">${obj.title}</h2>
-              <button aria-label=''>
-                <svg width="21" height="5" xmlns="http://www.w3.org/2000/svg"><path d="M2.5 0a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5Zm8 0a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5Zm8 0a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5Z" fill="currentcolor" fill-rule="evenodd"/></svg>
+              <button aria-label="Show more">
+                <svg aria-hidden="true" focusable="false" width="21" height="5" xmlns="http://www.w3.org/2000/svg"><path d="M2.5 0a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5Zm8 0a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5Zm8 0a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5Z" fill="currentcolor" fill-rule="evenodd"/></svg>
               </button>
             </div>
 
